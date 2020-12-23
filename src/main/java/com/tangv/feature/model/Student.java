@@ -14,6 +14,8 @@ public class Student {
 
     private Integer score;
 
+    private String point;
+
     public Student() {
     }
 
@@ -21,6 +23,12 @@ public class Student {
         this.id = id;
         this.name = name;
         this.score = score;
+    }
+
+    public Student(Long id, String name, String point) {
+        this.id = id;
+        this.name = name;
+        this.point = point;
     }
 
     public Long getId() {
@@ -45,5 +53,13 @@ public class Student {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String getPoint() {
+        return point;
+    }
+
+    public void setPoint(String point) {
+        this.point = point;
     }
 }
