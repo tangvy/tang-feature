@@ -29,12 +29,6 @@ public class RedisConfig {
      * @param redisConnectionFactory
      * @return
      */
-    /*@Bean
-    //springboot 1.xx
-    public CacheManager cacheManager(RedisTemplate redisTemplate) {
-        RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
-        return rcm;
-    }*/
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()

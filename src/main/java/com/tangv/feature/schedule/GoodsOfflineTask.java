@@ -34,7 +34,7 @@ public class GoodsOfflineTask implements Runnable {
     public void run() {
         Set<Long> goodsIdSet = redisTemplate.opsForZSet().rangeByScore(RedisConst.GOODS_OFFLINE, Long.MIN_VALUE, DateUtil.getTimeStemp(LocalDateTime.now()));
         if (CollectionUtil.isNotEmpty(goodsIdSet)) {
-            log.info("商品：{}已下架",goodsIdSet.toString());
+            log.debug("商品：{}已下架",goodsIdSet.toString());
             goodsService.stackingGoods(goodsIdSet);
             Iterator<Long> iterator = goodsIdSet.iterator();
             while (iterator.hasNext()) {

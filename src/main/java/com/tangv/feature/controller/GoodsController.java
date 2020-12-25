@@ -2,6 +2,7 @@ package com.tangv.feature.controller;
 
 import com.tangv.feature.dao.GoodsMapper;
 import com.tangv.feature.model.entity.Goods;
+import com.tangv.feature.response.Response;
 import com.tangv.feature.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +23,9 @@ public class GoodsController {
     private GoodsService goodsService;
 
     @PostMapping("/insert")
-    public String insert(@RequestBody Goods goods) {
+    public Response insert(@RequestBody Goods goods) {
         goodsService.insertGoods(goods);
-        return "success";
+        return Response.success();
     }
 
 }
