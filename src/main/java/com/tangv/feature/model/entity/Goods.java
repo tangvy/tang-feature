@@ -4,6 +4,7 @@ import com.tangv.feature.model.BasePojo;
 import lombok.Data;
 
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 /**
  * author:   tangwei
@@ -19,4 +20,6 @@ public class Goods extends BasePojo {
     private String goodsName;
 
     private Boolean online;
+
+    private LocalDateTime stackingTime;
 }

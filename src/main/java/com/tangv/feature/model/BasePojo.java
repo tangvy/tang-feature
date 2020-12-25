@@ -3,6 +3,8 @@ package com.tangv.feature.model;
 import com.tangv.feature.aspect.declare.IPojo;
 import lombok.Data;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,11 +17,14 @@ import java.time.LocalDateTime;
 @Data
 public class BasePojo implements IPojo, Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDateTime createTime;
 
     private LocalDateTime modifyTime;
+
+    private Boolean isDelete;
 
     @Override
     public void prepareInsert() {

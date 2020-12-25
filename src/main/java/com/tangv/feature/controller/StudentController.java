@@ -30,12 +30,18 @@ public class StudentController {
         Student s4 = new Student(4L,"bosh",93);
         Student s5 = new Student(5L,"walace",85);
         Student s6 = new Student(6L,"nash",70);
-        redisTemplate.opsForZSet().add("student_score",s1,s1.getScore());
+        /*redisTemplate.opsForZSet().add("student_score",s1,s1.getScore());
         redisTemplate.opsForZSet().add("student_score",s2,s2.getScore());
         redisTemplate.opsForZSet().add("student_score",s3,s3.getScore());
         redisTemplate.opsForZSet().add("student_score",s4,s4.getScore());
         redisTemplate.opsForZSet().add("student_score",s5,s5.getScore());
-        redisTemplate.opsForZSet().add("student_score",s6,s6.getScore());
+        redisTemplate.opsForZSet().add("student_score",s6,s6.getScore());*/
+        Long student_score = redisTemplate.opsForZSet().remove("student_score", s1);
+        Long student_score1 = redisTemplate.opsForZSet().remove("student_score", s2);
+        redisTemplate.opsForZSet().remove("student_score",s3);
+        redisTemplate.opsForZSet().remove("student_score",s4);
+        redisTemplate.opsForZSet().remove("student_score",s5);
+        redisTemplate.opsForZSet().remove("student_score",s6);
     }
 
     @PostMapping("/setPoint")
