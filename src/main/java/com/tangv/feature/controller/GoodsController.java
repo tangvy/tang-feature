@@ -1,8 +1,8 @@
 package com.tangv.feature.controller;
 
+import com.tangv.common.response.Response;
 import com.tangv.feature.dao.GoodsMapper;
 import com.tangv.feature.model.entity.Goods;
-import com.tangv.feature.response.Response;
 import com.tangv.feature.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

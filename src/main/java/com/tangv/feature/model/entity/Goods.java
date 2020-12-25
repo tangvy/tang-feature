@@ -1,6 +1,6 @@
 package com.tangv.feature.model.entity;
 
-import com.tangv.feature.model.BasePojo;
+import com.tangv.common.base.entity.BasePojo;
 import lombok.Data;
 
 import javax.persistence.Table;

@@ -1,6 +1,6 @@
 package com.tangv.feature.aspect;
 
-import com.tangv.feature.aspect.declare.IPojo;
+import com.tangv.common.aspect.declare.IPojo;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
