@@ -96,4 +96,10 @@ public class StudentController {
 
         return redisTemplate.opsForZSet().rank("student_score",s3);
     }
+
+    @PostMapping("/setStudent")
+    public void setStu() {
+        Student s1 = new Student(1L,"james","E");
+        redisTemplate.opsForValue().set("key::student",s1);
+    }
 }

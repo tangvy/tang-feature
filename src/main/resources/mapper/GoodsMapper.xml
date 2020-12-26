@@ -32,4 +32,18 @@
         </foreach>
     </update>
 
+    <select id="getGoodsList" resultMap="BaseResultMap" parameterType="com.tangv.feature.model.dto.GoodsSearchDTO">
+        select * from goods
+        where is_delete = 0
+        <if test="goodsSearchDTO.goodsCode != null and goodsSearchDTO.goodsCode != ''">
+            and goods_code = #{goodsSearchDTO.goodsCode}
+        </if>
+        <if test="goodsSearchDTO.goodsName != null and goodsSearchDTO.goodsName != ''">
+            and goods_name like concat('%',#{goodsSearchDTO.goodsName},'%')
+        </if>
+        <if test="goodsSearchDTO.online != null">
+            and online = #{goodsSearchDTO.online}
+        </if>
+    </select>
+
 </mapper>

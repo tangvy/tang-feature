@@ -22,8 +22,6 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class ScheduleRunner implements ApplicationRunner {
 
-    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
     private ScheduledExecutorService scheduledExecutorService;
 
     @Autowired

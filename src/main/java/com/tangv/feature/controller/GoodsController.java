@@ -1,7 +1,10 @@
 package com.tangv.feature.controller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.tangv.common.response.Response;
 import com.tangv.feature.dao.GoodsMapper;
+import com.tangv.feature.model.dto.GoodsSearchDTO;
 import com.tangv.feature.model.entity.Goods;
 import com.tangv.feature.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,11 @@ public class GoodsController {
     public Response insert(@RequestBody Goods goods) {
         goodsService.insertGoods(goods);
         return Response.success();
+    }
+
+    @PostMapping("/goodsPage")
+    public Response<PageInfo<Goods>> getPage(@RequestBody GoodsSearchDTO goodsSearchDTO) {
+        return Response.success(goodsService.getPage(goodsSearchDTO));
     }
 
 }
