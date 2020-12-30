@@ -1,0 +1,14 @@
+com\tangv\feature\config\ThreadPoolExecutorConfig.class
+com\tangv\feature\FeatureApplication.class
+com\tangv\feature\model\Student.class
+com\tangv\feature\service\GoodsService.class
+com\tangv\feature\consts\RedisConst.class
+com\tangv\feature\model\entity\Goods.class
+com\tangv\feature\dao\GoodsMapper.class
+com\tangv\feature\schedule\QueueExcutor.class
+com\tangv\feature\aspect\InsertUpdateAspect.class
+com\tangv\feature\schedule\GoodsOfflineTask.class
+com\tangv\feature\schedule\ScheduleRunner.class
+com\tangv\feature\controller\StudentController.class
+com\tangv\feature\config\RedisConfig.class
+com\tangv\feature\controller\GoodsController.class
