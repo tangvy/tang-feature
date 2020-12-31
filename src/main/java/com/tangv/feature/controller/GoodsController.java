@@ -3,7 +3,8 @@ package com.tangv.feature.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.tangv.common.response.Response;
-import com.tangv.feature.dao.GoodsMapper;
+import com.tangv.feature.config.DataBaseType;
+import com.tangv.feature.config.DataSourceHolder;
 import com.tangv.feature.model.dto.GoodsSearchDTO;
 import com.tangv.feature.model.entity.Goods;
 import com.tangv.feature.service.GoodsService;
@@ -27,6 +28,7 @@ public class GoodsController {
 
     @PostMapping("/insert")
     public Response insert(@RequestBody Goods goods) {
+        DataSourceHolder.setDatasources(DataBaseType.TANG_FEATURE1);
         goodsService.insertGoods(goods);
         return Response.success();
     }
