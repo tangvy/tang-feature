@@ -28,7 +28,7 @@ public class GoodsController {
 
     @PostMapping("/insert")
     public Response insert(@RequestBody Goods goods) {
-        DataSourceHolder.setDatasources(DataBaseType.TANG_FEATURE1);
+        //DataSourceHolder.setDatasources(DataBaseType.TANG_FEATURE1);
         goodsService.insertGoods(goods);
         return Response.success();
     }

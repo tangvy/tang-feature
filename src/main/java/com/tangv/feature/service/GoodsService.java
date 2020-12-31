@@ -8,6 +8,8 @@ import com.tangv.common.enums.CodeType;
 import com.tangv.common.response.Response;
 import com.tangv.common.util.DateUtil;
 import com.tangv.common.util.NumUtil;
+import com.tangv.feature.annotation.TargetDataSource;
+import com.tangv.feature.config.DataBaseType;
 import com.tangv.feature.consts.RedisConst;
 import com.tangv.feature.dao.GoodsMapper;
 import com.tangv.feature.model.dto.GoodsSearchDTO;
@@ -31,6 +33,7 @@ import java.util.List;
  */
 
 @Service
+@TargetDataSource(DataBaseType.TANG_FEATURE1)
 public class GoodsService {
 
     @Autowired
@@ -38,7 +41,8 @@ public class GoodsService {
     
     @Autowired
     private RedisTemplate redisTemplate;
-    
+
+    //@TargetDataSource(DataBaseType.TANG_FEATURE1)
     public void insertGoods(Goods goods) {
         goods.setGoodsCode(NumUtil.getCode(CodeType.GOODS_CODE));
         goods.setStackingTime(LocalDateTime.now());
