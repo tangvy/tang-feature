@@ -37,5 +37,4 @@ public class GoodsController {
     public Response<PageInfo<Goods>> getPage(@RequestBody GoodsSearchDTO goodsSearchDTO) {
         return Response.success(goodsService.getPage(goodsSearchDTO));
     }
-
 }

@@ -8,6 +8,7 @@ import com.tangv.common.enums.CodeType;
 import com.tangv.common.response.Response;
 import com.tangv.common.util.DateUtil;
 import com.tangv.common.util.NumUtil;
+import com.tangv.feature.annotation.EagleEye;
 import com.tangv.feature.annotation.TargetDataSource;
 import com.tangv.feature.config.DataBaseType;
 import com.tangv.feature.consts.RedisConst;
@@ -57,6 +58,7 @@ public class GoodsService {
         }
     }
 
+    @EagleEye("获取商品列表")
     public PageInfo<Goods> getPage(GoodsSearchDTO goodsSearchDTO) {
         Page<Goods> page = PageHelper.startPage(goodsSearchDTO.getPage(), goodsSearchDTO.getSize());
         goodsMapper.getGoodsList(goodsSearchDTO);
