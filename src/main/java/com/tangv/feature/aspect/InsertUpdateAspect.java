@@ -21,7 +21,8 @@ public class InsertUpdateAspect {
 
     public InsertUpdateAspect(){}
 
-    @Pointcut("execution(* tk.mybatis.mapper.common.Mapper.update*(..))")
+    //@Pointcut("execution(* tk.mybatis.mapper.common.Mapper.update*(..))")
+    @Pointcut("execution(* com.tangv.feature.service.GoodsService.test(..))")
     public void aroundUpdate() {}
 
     @Pointcut("execution(* tk.mybatis.mapper.common.Mapper.insert*(..))")

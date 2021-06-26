@@ -9,10 +9,7 @@ import com.tangv.feature.model.dto.GoodsSearchDTO;
 import com.tangv.feature.model.entity.Goods;
 import com.tangv.feature.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * author:   tangwei
@@ -36,5 +33,10 @@ public class GoodsController {
     @PostMapping("/goodsPage")
     public Response<PageInfo<Goods>> getPage(@RequestBody GoodsSearchDTO goodsSearchDTO) {
         return Response.success(goodsService.getPage(goodsSearchDTO));
+    }
+
+    @GetMapping("/test")
+    public void get() {
+        goodsService.test();
     }
 }
