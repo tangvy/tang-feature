@@ -56,8 +56,7 @@ public class ByteInputOutputTest extends BaseTestEntity {
         FileInputStream fis2 = new FileInputStream("/Users/tangwei/Downloads/2022年美团技术年货 - 后端系列.pdf");
         FileOutputStream fos2 = new FileOutputStream("classpath: meituan.pdf");
         StopWatch stopWatch2 = new StopWatch("io-test");
-        //try (fis2;fos2) {
-            try {
+        try (fis2;fos2) {
             stopWatch.start();
             int len = 0;
             byte[] bytes = new byte[1024*1024*5];
