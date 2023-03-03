@@ -7,7 +7,7 @@ package com.tangv.feature.config;
  */
 public class DataSourceHolder {
 
-    private static final ThreadLocal<DataBaseType> datasources = ThreadLocal.withInitial(() ->DataBaseType.TANG_FEATURE);
+    private static final ThreadLocal<DataBaseType> datasources = ThreadLocal.withInitial(() ->DataBaseType.CANAL_TANGV);
 
     public static void setDatasources(DataBaseType dataBaseType) {
         datasources.set(dataBaseType);

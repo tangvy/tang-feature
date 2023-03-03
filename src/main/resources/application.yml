@@ -16,13 +16,19 @@ spring:
         wall,stat,slf4j
 
       tang-feature:
-        url: jdbc:mysql://192.168.247.128:3306/tang-feature?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://192.168.110.64:3306/tang-feature?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
         username: root
         password: 123456
         driver-class-name: com.mysql.cj.jdbc.Driver
 
       tang-feature1:
-        url: jdbc:mysql://192.168.247.128:3306/tang-feature1?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://192.168.110.64:3306/tang-feature1?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+        username: root
+        password: 123456
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+      canal-tangv:
+        url: jdbc:mysql://192.168.110.64:3306/canal_tangv?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
         username: root
         password: 123456
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -39,6 +45,42 @@ spring:
         max-idle: 10
         min-idle: 0
     timeout: 1000
+
+  kafka:
+    bootstrap-servers: :192.168.110.64:9091,192.168.110.64:9092,192.168.110.64:9093
+    security:
+      protocol: PLAINTEXT
+    consumer:
+      enable-auto-commit: false
+      auto-commit-interval: 5s
+      auto-offset-reset: latest
+      heartbeat-interval: 5s
+      max-poll-records: 100
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      autoStartup: true
+      properties:
+        # 5 * 1024 * 1024
+        max.partition.fetch.bytes: 5242880
+        #
+        max.poll.interval: 600s
+        session.timeout: 60s
+        partition.assignmen.strategy: org.apache.kafka.clients.consumer.RoundRobinAssignor
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.scram.ScramLoginModule required username="" password="";
+
+      isolation-level: read_committed
+    producer:
+      acks: -1
+      properties:
+        enable:
+          idempotence: true
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.scram.ScramLoginModule required username="" password="";
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

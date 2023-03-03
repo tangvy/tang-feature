@@ -2,6 +2,8 @@ package com.tangv.feature.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -14,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.test.context.jdbc.Sql;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -53,16 +56,28 @@ public class DataSourceConfig {
     }
 
     /**
+     * 数据源:mysql数据库canal_tangv
+     */
+    @Bean(name = "canalTangv")
+    @ConfigurationProperties(prefix = "spring.datasource.druid.canal-tangv")
+    public DataSource canalTangv() {
+        return DruidDataSourceBuilder.create().build();
+    }
+
+    /**
      * 自定义数据源DynamicDataSource，继承AbstractRoutingDataSource，把多个数据源管理起来
      */
     @Bean
     @Primary
-    public DynamicDataSource dataSource(@Qualifier("feature") DataSource feature, @Qualifier(value = "feature1") DataSource feature1) {
-        Map<Object, Object> targetDataSources = new HashMap<>(2);
+    public DynamicDataSource dataSource(@Qualifier("feature") DataSource feature,
+                                        @Qualifier(value = "feature1") DataSource feature1,
+                                        @Qualifier(value = "canalTangv") DataSource canalTangv) {
+        Map<Object, Object> targetDataSources = new HashMap<>(3);
         targetDataSources.put(DataBaseType.TANG_FEATURE,feature);
         targetDataSources.put(DataBaseType.TANG_FEATURE1,feature1);
+        targetDataSources.put(DataBaseType.CANAL_TANGV,canalTangv);
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
-        dynamicDataSource.setDefaultTargetDataSource(feature);
+        dynamicDataSource.setDefaultTargetDataSource(canalTangv);
         dynamicDataSource.setTargetDataSources(targetDataSources);
         return dynamicDataSource;
     }
@@ -71,20 +86,20 @@ public class DataSourceConfig {
      * SQLSession工厂
      */
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactoryBean(DynamicDataSource dynamicDataSource) throws IOException {
+    public SqlSessionFactory sqlSessionFactoryBean(DynamicDataSource dynamicDataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dynamicDataSource);
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources("classpath:mapper/*.xml"));
-        return sqlSessionFactoryBean;
+        return sqlSessionFactoryBean.getObject();
     }
 
     /**
      * 配置一个可以进行批量执行的sqlSession
      */
     @Bean
-    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception {
-        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactoryBean.getObject(), ExecutorType.BATCH);
+    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) throws Exception {
+        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory, ExecutorType.BATCH);
         return sqlSessionTemplate;
     }
 
