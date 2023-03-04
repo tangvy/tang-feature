@@ -16,13 +16,13 @@ spring:
         wall,stat,slf4j
 
       tang-feature:
-        url: jdbc:mysql://192.168.247.128:3306/tang-feature?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://localhost:3306/tang-feature?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
         username: root
         password: 123456
         driver-class-name: com.mysql.cj.jdbc.Driver
 
       tang-feature1:
-        url: jdbc:mysql://192.168.247.128:3306/tang-feature1?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://localhost:3306/tang-feature1?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
         username: root
         password: 123456
         driver-class-name: com.mysql.cj.jdbc.Driver
