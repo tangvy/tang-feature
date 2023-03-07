@@ -1,3 +1,4 @@
+/*
 package com.tangv.feature.aspect;
 
 import com.tangv.common.aspect.declare.IPojo;
@@ -10,24 +11,26 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Iterator;
 import java.util.List;
 
+*/
 /**
  * Description:
  * Author:      TangWei
  * Date:        2020/9/17 10:26 上午
- */
+ *//*
+
 @Configuration
 @Aspect
 public class InsertUpdateAspect {
 
     public InsertUpdateAspect(){}
 
-    @Pointcut("execution(* tk.mybatis.mapper.common.Mapper.update*(..))")
+    @Pointcut("execution(* com.tangv.feature.dao.*Mapper.update*(..))")
     public void aroundUpdate() {}
 
-    @Pointcut("execution(* tk.mybatis.mapper.common.Mapper.insert*(..))")
+    @Pointcut("execution(* com.tangv.feature.dao.*Mapper.insert*(..))")
     public void aroundInsert() {}
 
-    @Pointcut("execution(* tk.mybatis.mapper.common.special.InsertListMapper.insertList(..))")
+    @Pointcut("execution(* com.tangv.feature.dao.*Mapper.insertList(..))")
     public void aroundInsertList() {}
 
     @Around("aroundUpdate()")
@@ -86,3 +89,4 @@ public class InsertUpdateAspect {
     }
 
 }
+*/

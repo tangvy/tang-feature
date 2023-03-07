@@ -4,6 +4,7 @@
  */
 package com.tangv.feature.binlogs;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tangv.common.enums.BinlogConsumeTableEnum;
 
 /**
@@ -47,5 +48,5 @@ public abstract class AbstractBinlogConsumeHandler<T> {
      * @param binlogContent
      * @return T
      */
-    public abstract T convert(String binlogContent);
+    public abstract T convert(JSONObject binlogContent);
 }

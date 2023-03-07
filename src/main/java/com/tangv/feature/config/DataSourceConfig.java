@@ -1,6 +1,7 @@
 package com.tangv.feature.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -67,7 +68,7 @@ public class DataSourceConfig {
     /**
      * 自定义数据源DynamicDataSource，继承AbstractRoutingDataSource，把多个数据源管理起来
      */
-    @Bean
+    @Bean(name = "dynamicDataSource")
     @Primary
     public DynamicDataSource dataSource(@Qualifier("feature") DataSource feature,
                                         @Qualifier(value = "feature1") DataSource feature1,
@@ -85,21 +86,21 @@ public class DataSourceConfig {
     /**
      * SQLSession工厂
      */
-    @Bean
-    public SqlSessionFactory sqlSessionFactoryBean(DynamicDataSource dynamicDataSource) throws Exception {
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+    @Bean(name = "sqlSessionFactoryBean")
+    public MybatisSqlSessionFactoryBean sqlSessionFactoryBean(@Qualifier("dynamicDataSource") DynamicDataSource dynamicDataSource) throws Exception {
+        MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dynamicDataSource);
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources("classpath:mapper/*.xml"));
-        return sqlSessionFactoryBean.getObject();
+        return sqlSessionFactoryBean;
     }
 
     /**
      * 配置一个可以进行批量执行的sqlSession
      */
     @Bean
-    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) throws Exception {
-        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory, ExecutorType.BATCH);
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("sqlSessionFactoryBean") MybatisSqlSessionFactoryBean sqlSessionFactoryBean) throws Exception {
+        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactoryBean.getObject(), ExecutorType.SIMPLE);
         return sqlSessionTemplate;
     }
 
@@ -107,9 +108,14 @@ public class DataSourceConfig {
      * spring事务管理
      */
     @Bean
-    public DataSourceTransactionManager transactionManager(DynamicDataSource dynamicDataSource) {
+    public DataSourceTransactionManager transactionManager(@Qualifier("dynamicDataSource") DynamicDataSource dynamicDataSource) {
         DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
         transactionManager.setDataSource(dynamicDataSource);
         return transactionManager;
+    }
+
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+        return sqlSessionFactory;
     }
 }

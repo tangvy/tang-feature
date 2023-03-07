@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tangv.feature.dao.OmsOrderMapper">
+  <resultMap id="BaseResultMap" type="com.tangv.feature.model.entity.OmsOrder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="owner_code" jdbcType="VARCHAR" property="ownerCode" />
+    <result column="warehouse_code" jdbcType="VARCHAR" property="warehouseCode" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="business_type" jdbcType="VARCHAR" property="businessType" />
+    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="order_status_time" jdbcType="TIMESTAMP" property="orderStatusTime" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+    <result column="consignee_id" jdbcType="VARCHAR" property="consigneeId" />
+    <result column="order_type" jdbcType="VARCHAR" property="orderType" />
+    <result column="platform_code" jdbcType="VARCHAR" property="platformCode" />
+    <result column="tid" jdbcType="VARCHAR" property="tid" />
+    <result column="user_nick" jdbcType="VARCHAR" property="userNick" />
+    <result column="seller_nick" jdbcType="VARCHAR" property="sellerNick" />
+    <result column="consignee_doc_type" jdbcType="INTEGER" property="consigneeDocType" />
+    <result column="consignee_doc_no" jdbcType="VARCHAR" property="consigneeDocNo" />
+    <result column="order_price" jdbcType="INTEGER" property="orderPrice" />
+    <result column="order_currency" jdbcType="VARCHAR" property="orderCurrency" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="from_order_id" jdbcType="INTEGER" property="fromOrderId" />
+    <result column="distribution_status" jdbcType="INTEGER" property="distributionStatus" />
+    <result column="order_exception_code" jdbcType="VARCHAR" property="orderExceptionCode" />
+    <result column="stock_occupy_status" jdbcType="INTEGER" property="stockOccupyStatus" />
+    <result column="stock_occupy_remark" jdbcType="VARCHAR" property="stockOccupyRemark" />
+    <result column="invoice_type" jdbcType="INTEGER" property="invoiceType" />
+    <result column="invoice_title" jdbcType="VARCHAR" property="invoiceTitle" />
+    <result column="invoice_content" jdbcType="VARCHAR" property="invoiceContent" />
+    <result column="invoice_amount" jdbcType="INTEGER" property="invoiceAmount" />
+    <result column="distribution_mode" jdbcType="INTEGER" property="distributionMode" />
+    <result column="distribution_name" jdbcType="VARCHAR" property="distributionName" />
+    <result column="merge_order_status" jdbcType="INTEGER" property="mergeOrderStatus" />
+    <result column="change_order_status" jdbcType="INTEGER" property="changeOrderStatus" />
+    <result column="split_order_status" jdbcType="INTEGER" property="splitOrderStatus" />
+    <result column="copy_order_status" jdbcType="INTEGER" property="copyOrderStatus" />
+    <result column="express_code" jdbcType="VARCHAR" property="expressCode" />
+    <result column="express_no" jdbcType="VARCHAR" property="expressNo" />
+    <result column="buyer_remark" jdbcType="VARCHAR" property="buyerRemark" />
+    <result column="seller_remark" jdbcType="VARCHAR" property="sellerRemark" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="create_by_user_id" jdbcType="VARCHAR" property="createByUserId" />
+    <result column="update_by_user_id" jdbcType="VARCHAR" property="updateByUserId" />
+    <result column="create_by_client_id" jdbcType="VARCHAR" property="createByClientId" />
+    <result column="update_by_client_id" jdbcType="VARCHAR" property="updateByClientId" />
+    <result column="request_id" jdbcType="VARCHAR" property="requestId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="order_payment_type" jdbcType="VARCHAR" property="orderPaymentType" />
+    <result column="rate_name" jdbcType="VARCHAR" property="rateName" />
+    <result column="is_send_to_sh" jdbcType="INTEGER" property="isSendToSh" />
+    <result column="marketplace" jdbcType="VARCHAR" property="marketplace" />
+    <result column="hq_order_id" jdbcType="VARCHAR" property="hqOrderId" />
+    <result column="order_flag" jdbcType="VARCHAR" property="orderFlag" />
+    <result column="is_insurance" jdbcType="INTEGER" property="isInsurance" />
+    <result column="order_source" jdbcType="VARCHAR" property="orderSource" />
+    <result column="is_logistics_order" jdbcType="INTEGER" property="isLogisticsOrder" />
+    <result column="waiting_status" jdbcType="VARCHAR" property="waitingStatus" />
+    <result column="original_order_no" jdbcType="VARCHAR" property="originalOrderNo" />
+    <result column="has_split" jdbcType="BIT" property="hasSplit" />
+    <result column="shipping_label_url" jdbcType="VARCHAR" property="shippingLabelUrl" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tangv.feature.model.entity.OmsOrder">
+    <result column="ext" jdbcType="LONGVARCHAR" property="ext" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, owner_code, warehouse_code, order_no, business_type, order_status, order_status_time, 
+    consignee, consignee_id, order_type, platform_code, tid, user_nick, seller_nick, 
+    consignee_doc_type, consignee_doc_no, order_price, order_currency, order_time, address, 
+    from_order_id, distribution_status, order_exception_code, stock_occupy_status, stock_occupy_remark, 
+    invoice_type, invoice_title, invoice_content, invoice_amount, distribution_mode, 
+    distribution_name, merge_order_status, change_order_status, split_order_status, copy_order_status, 
+    express_code, express_no, buyer_remark, seller_remark, shop_id, phone, mobile, email, 
+    create_by_user_id, update_by_user_id, create_by_client_id, update_by_client_id, request_id, 
+    gmt_create, gmt_modified, remark, order_payment_type, rate_name, is_send_to_sh, marketplace, 
+    hq_order_id, order_flag, is_insurance, order_source, is_logistics_order, waiting_status, 
+    original_order_no, has_split, shipping_label_url
+  </sql>
+  <sql id="Blob_Column_List">
+    ext
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from oms_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oms_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tangv.feature.model.entity.OmsOrder">
+    insert into oms_order (id, owner_code, warehouse_code, 
+      order_no, business_type, order_status, 
+      order_status_time, consignee, consignee_id, 
+      order_type, platform_code, tid, 
+      user_nick, seller_nick, consignee_doc_type, 
+      consignee_doc_no, order_price, order_currency, 
+      order_time, address, from_order_id, 
+      distribution_status, order_exception_code, 
+      stock_occupy_status, stock_occupy_remark, invoice_type, 
+      invoice_title, invoice_content, invoice_amount, 
+      distribution_mode, distribution_name, merge_order_status, 
+      change_order_status, split_order_status, copy_order_status, 
+      express_code, express_no, buyer_remark, 
+      seller_remark, shop_id, phone, 
+      mobile, email, create_by_user_id, 
+      update_by_user_id, create_by_client_id, update_by_client_id, 
+      request_id, gmt_create, gmt_modified, 
+      remark, order_payment_type, rate_name, 
+      is_send_to_sh, marketplace, hq_order_id, 
+      order_flag, is_insurance, order_source, 
+      is_logistics_order, waiting_status, original_order_no, 
+      has_split, shipping_label_url, ext
+      )
+    values (#{id,jdbcType=INTEGER}, #{ownerCode,jdbcType=VARCHAR}, #{warehouseCode,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{businessType,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR}, 
+      #{orderStatusTime,jdbcType=TIMESTAMP}, #{consignee,jdbcType=VARCHAR}, #{consigneeId,jdbcType=VARCHAR}, 
+      #{orderType,jdbcType=VARCHAR}, #{platformCode,jdbcType=VARCHAR}, #{tid,jdbcType=VARCHAR}, 
+      #{userNick,jdbcType=VARCHAR}, #{sellerNick,jdbcType=VARCHAR}, #{consigneeDocType,jdbcType=INTEGER}, 
+      #{consigneeDocNo,jdbcType=VARCHAR}, #{orderPrice,jdbcType=INTEGER}, #{orderCurrency,jdbcType=VARCHAR}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, #{fromOrderId,jdbcType=INTEGER}, 
+      #{distributionStatus,jdbcType=INTEGER}, #{orderExceptionCode,jdbcType=VARCHAR}, 
+      #{stockOccupyStatus,jdbcType=INTEGER}, #{stockOccupyRemark,jdbcType=VARCHAR}, #{invoiceType,jdbcType=INTEGER}, 
+      #{invoiceTitle,jdbcType=VARCHAR}, #{invoiceContent,jdbcType=VARCHAR}, #{invoiceAmount,jdbcType=INTEGER}, 
+      #{distributionMode,jdbcType=INTEGER}, #{distributionName,jdbcType=VARCHAR}, #{mergeOrderStatus,jdbcType=INTEGER}, 
+      #{changeOrderStatus,jdbcType=INTEGER}, #{splitOrderStatus,jdbcType=INTEGER}, #{copyOrderStatus,jdbcType=INTEGER}, 
+      #{expressCode,jdbcType=VARCHAR}, #{expressNo,jdbcType=VARCHAR}, #{buyerRemark,jdbcType=VARCHAR}, 
+      #{sellerRemark,jdbcType=VARCHAR}, #{shopId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createByUserId,jdbcType=VARCHAR}, 
+      #{updateByUserId,jdbcType=VARCHAR}, #{createByClientId,jdbcType=VARCHAR}, #{updateByClientId,jdbcType=VARCHAR}, 
+      #{requestId,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{orderPaymentType,jdbcType=VARCHAR}, #{rateName,jdbcType=VARCHAR}, 
+      #{isSendToSh,jdbcType=INTEGER}, #{marketplace,jdbcType=VARCHAR}, #{hqOrderId,jdbcType=VARCHAR}, 
+      #{orderFlag,jdbcType=VARCHAR}, #{isInsurance,jdbcType=INTEGER}, #{orderSource,jdbcType=VARCHAR}, 
+      #{isLogisticsOrder,jdbcType=INTEGER}, #{waitingStatus,jdbcType=VARCHAR}, #{originalOrderNo,jdbcType=VARCHAR}, 
+      #{hasSplit,jdbcType=BIT}, #{shippingLabelUrl,jdbcType=VARCHAR}, #{ext,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tangv.feature.model.entity.OmsOrder">
+    insert into oms_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ownerCode != null">
+        owner_code,
+      </if>
+      <if test="warehouseCode != null">
+        warehouse_code,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="businessType != null">
+        business_type,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="orderStatusTime != null">
+        order_status_time,
+      </if>
+      <if test="consignee != null">
+        consignee,
+      </if>
+      <if test="consigneeId != null">
+        consignee_id,
+      </if>
+      <if test="orderType != null">
+        order_type,
+      </if>
+      <if test="platformCode != null">
+        platform_code,
+      </if>
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="userNick != null">
+        user_nick,
+      </if>
+      <if test="sellerNick != null">
+        seller_nick,
+      </if>
+      <if test="consigneeDocType != null">
+        consignee_doc_type,
+      </if>
+      <if test="consigneeDocNo != null">
+        consignee_doc_no,
+      </if>
+      <if test="orderPrice != null">
+        order_price,
+      </if>
+      <if test="orderCurrency != null">
+        order_currency,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="fromOrderId != null">
+        from_order_id,
+      </if>
+      <if test="distributionStatus != null">
+        distribution_status,
+      </if>
+      <if test="orderExceptionCode != null">
+        order_exception_code,
+      </if>
+      <if test="stockOccupyStatus != null">
+        stock_occupy_status,
+      </if>
+      <if test="stockOccupyRemark != null">
+        stock_occupy_remark,
+      </if>
+      <if test="invoiceType != null">
+        invoice_type,
+      </if>
+      <if test="invoiceTitle != null">
+        invoice_title,
+      </if>
+      <if test="invoiceContent != null">
+        invoice_content,
+      </if>
+      <if test="invoiceAmount != null">
+        invoice_amount,
+      </if>
+      <if test="distributionMode != null">
+        distribution_mode,
+      </if>
+      <if test="distributionName != null">
+        distribution_name,
+      </if>
+      <if test="mergeOrderStatus != null">
+        merge_order_status,
+      </if>
+      <if test="changeOrderStatus != null">
+        change_order_status,
+      </if>
+      <if test="splitOrderStatus != null">
+        split_order_status,
+      </if>
+      <if test="copyOrderStatus != null">
+        copy_order_status,
+      </if>
+      <if test="expressCode != null">
+        express_code,
+      </if>
+      <if test="expressNo != null">
+        express_no,
+      </if>
+      <if test="buyerRemark != null">
+        buyer_remark,
+      </if>
+      <if test="sellerRemark != null">
+        seller_remark,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="createByUserId != null">
+        create_by_user_id,
+      </if>
+      <if test="updateByUserId != null">
+        update_by_user_id,
+      </if>
+      <if test="createByClientId != null">
+        create_by_client_id,
+      </if>
+      <if test="updateByClientId != null">
+        update_by_client_id,
+      </if>
+      <if test="requestId != null">
+        request_id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="orderPaymentType != null">
+        order_payment_type,
+      </if>
+      <if test="rateName != null">
+        rate_name,
+      </if>
+      <if test="isSendToSh != null">
+        is_send_to_sh,
+      </if>
+      <if test="marketplace != null">
+        marketplace,
+      </if>
+      <if test="hqOrderId != null">
+        hq_order_id,
+      </if>
+      <if test="orderFlag != null">
+        order_flag,
+      </if>
+      <if test="isInsurance != null">
+        is_insurance,
+      </if>
+      <if test="orderSource != null">
+        order_source,
+      </if>
+      <if test="isLogisticsOrder != null">
+        is_logistics_order,
+      </if>
+      <if test="waitingStatus != null">
+        waiting_status,
+      </if>
+      <if test="originalOrderNo != null">
+        original_order_no,
+      </if>
+      <if test="hasSplit != null">
+        has_split,
+      </if>
+      <if test="shippingLabelUrl != null">
+        shipping_label_url,
+      </if>
+      <if test="ext != null">
+        ext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ownerCode != null">
+        #{ownerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseCode != null">
+        #{warehouseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null">
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatusTime != null">
+        #{orderStatusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consignee != null">
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeId != null">
+        #{consigneeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="platformCode != null">
+        #{platformCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tid != null">
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="userNick != null">
+        #{userNick,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerNick != null">
+        #{sellerNick,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeDocType != null">
+        #{consigneeDocType,jdbcType=INTEGER},
+      </if>
+      <if test="consigneeDocNo != null">
+        #{consigneeDocNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPrice != null">
+        #{orderPrice,jdbcType=INTEGER},
+      </if>
+      <if test="orderCurrency != null">
+        #{orderCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="fromOrderId != null">
+        #{fromOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="distributionStatus != null">
+        #{distributionStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderExceptionCode != null">
+        #{orderExceptionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockOccupyStatus != null">
+        #{stockOccupyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="stockOccupyRemark != null">
+        #{stockOccupyRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null">
+        #{invoiceType,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceTitle != null">
+        #{invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceContent != null">
+        #{invoiceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceAmount != null">
+        #{invoiceAmount,jdbcType=INTEGER},
+      </if>
+      <if test="distributionMode != null">
+        #{distributionMode,jdbcType=INTEGER},
+      </if>
+      <if test="distributionName != null">
+        #{distributionName,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeOrderStatus != null">
+        #{mergeOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="changeOrderStatus != null">
+        #{changeOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="splitOrderStatus != null">
+        #{splitOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="copyOrderStatus != null">
+        #{copyOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="expressCode != null">
+        #{expressCode,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null">
+        #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerRemark != null">
+        #{buyerRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerRemark != null">
+        #{sellerRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createByUserId != null">
+        #{createByUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateByUserId != null">
+        #{updateByUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createByClientId != null">
+        #{createByClientId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateByClientId != null">
+        #{updateByClientId,jdbcType=VARCHAR},
+      </if>
+      <if test="requestId != null">
+        #{requestId,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPaymentType != null">
+        #{orderPaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="rateName != null">
+        #{rateName,jdbcType=VARCHAR},
+      </if>
+      <if test="isSendToSh != null">
+        #{isSendToSh,jdbcType=INTEGER},
+      </if>
+      <if test="marketplace != null">
+        #{marketplace,jdbcType=VARCHAR},
+      </if>
+      <if test="hqOrderId != null">
+        #{hqOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFlag != null">
+        #{orderFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="isInsurance != null">
+        #{isInsurance,jdbcType=INTEGER},
+      </if>
+      <if test="orderSource != null">
+        #{orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="isLogisticsOrder != null">
+        #{isLogisticsOrder,jdbcType=INTEGER},
+      </if>
+      <if test="waitingStatus != null">
+        #{waitingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="originalOrderNo != null">
+        #{originalOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="hasSplit != null">
+        #{hasSplit,jdbcType=BIT},
+      </if>
+      <if test="shippingLabelUrl != null">
+        #{shippingLabelUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null">
+        #{ext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tangv.feature.model.entity.OmsOrder">
+    update oms_order
+    <set>
+      <if test="ownerCode != null">
+        owner_code = #{ownerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseCode != null">
+        warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null">
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatusTime != null">
+        order_status_time = #{orderStatusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consignee != null">
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeId != null">
+        consignee_id = #{consigneeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="platformCode != null">
+        platform_code = #{platformCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tid != null">
+        tid = #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="userNick != null">
+        user_nick = #{userNick,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerNick != null">
+        seller_nick = #{sellerNick,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeDocType != null">
+        consignee_doc_type = #{consigneeDocType,jdbcType=INTEGER},
+      </if>
+      <if test="consigneeDocNo != null">
+        consignee_doc_no = #{consigneeDocNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPrice != null">
+        order_price = #{orderPrice,jdbcType=INTEGER},
+      </if>
+      <if test="orderCurrency != null">
+        order_currency = #{orderCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="fromOrderId != null">
+        from_order_id = #{fromOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="distributionStatus != null">
+        distribution_status = #{distributionStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderExceptionCode != null">
+        order_exception_code = #{orderExceptionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockOccupyStatus != null">
+        stock_occupy_status = #{stockOccupyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="stockOccupyRemark != null">
+        stock_occupy_remark = #{stockOccupyRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null">
+        invoice_type = #{invoiceType,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceTitle != null">
+        invoice_title = #{invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceContent != null">
+        invoice_content = #{invoiceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceAmount != null">
+        invoice_amount = #{invoiceAmount,jdbcType=INTEGER},
+      </if>
+      <if test="distributionMode != null">
+        distribution_mode = #{distributionMode,jdbcType=INTEGER},
+      </if>
+      <if test="distributionName != null">
+        distribution_name = #{distributionName,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeOrderStatus != null">
+        merge_order_status = #{mergeOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="changeOrderStatus != null">
+        change_order_status = #{changeOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="splitOrderStatus != null">
+        split_order_status = #{splitOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="copyOrderStatus != null">
+        copy_order_status = #{copyOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="expressCode != null">
+        express_code = #{expressCode,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null">
+        express_no = #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerRemark != null">
+        buyer_remark = #{buyerRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerRemark != null">
+        seller_remark = #{sellerRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createByUserId != null">
+        create_by_user_id = #{createByUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateByUserId != null">
+        update_by_user_id = #{updateByUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createByClientId != null">
+        create_by_client_id = #{createByClientId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateByClientId != null">
+        update_by_client_id = #{updateByClientId,jdbcType=VARCHAR},
+      </if>
+      <if test="requestId != null">
+        request_id = #{requestId,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPaymentType != null">
+        order_payment_type = #{orderPaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="rateName != null">
+        rate_name = #{rateName,jdbcType=VARCHAR},
+      </if>
+      <if test="isSendToSh != null">
+        is_send_to_sh = #{isSendToSh,jdbcType=INTEGER},
+      </if>
+      <if test="marketplace != null">
+        marketplace = #{marketplace,jdbcType=VARCHAR},
+      </if>
+      <if test="hqOrderId != null">
+        hq_order_id = #{hqOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFlag != null">
+        order_flag = #{orderFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="isInsurance != null">
+        is_insurance = #{isInsurance,jdbcType=INTEGER},
+      </if>
+      <if test="orderSource != null">
+        order_source = #{orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="isLogisticsOrder != null">
+        is_logistics_order = #{isLogisticsOrder,jdbcType=INTEGER},
+      </if>
+      <if test="waitingStatus != null">
+        waiting_status = #{waitingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="originalOrderNo != null">
+        original_order_no = #{originalOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="hasSplit != null">
+        has_split = #{hasSplit,jdbcType=BIT},
+      </if>
+      <if test="shippingLabelUrl != null">
+        shipping_label_url = #{shippingLabelUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null">
+        ext = #{ext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tangv.feature.model.entity.OmsOrder">
+    update oms_order
+    set owner_code = #{ownerCode,jdbcType=VARCHAR},
+      warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      order_status_time = #{orderStatusTime,jdbcType=TIMESTAMP},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      consignee_id = #{consigneeId,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      platform_code = #{platformCode,jdbcType=VARCHAR},
+      tid = #{tid,jdbcType=VARCHAR},
+      user_nick = #{userNick,jdbcType=VARCHAR},
+      seller_nick = #{sellerNick,jdbcType=VARCHAR},
+      consignee_doc_type = #{consigneeDocType,jdbcType=INTEGER},
+      consignee_doc_no = #{consigneeDocNo,jdbcType=VARCHAR},
+      order_price = #{orderPrice,jdbcType=INTEGER},
+      order_currency = #{orderCurrency,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      address = #{address,jdbcType=VARCHAR},
+      from_order_id = #{fromOrderId,jdbcType=INTEGER},
+      distribution_status = #{distributionStatus,jdbcType=INTEGER},
+      order_exception_code = #{orderExceptionCode,jdbcType=VARCHAR},
+      stock_occupy_status = #{stockOccupyStatus,jdbcType=INTEGER},
+      stock_occupy_remark = #{stockOccupyRemark,jdbcType=VARCHAR},
+      invoice_type = #{invoiceType,jdbcType=INTEGER},
+      invoice_title = #{invoiceTitle,jdbcType=VARCHAR},
+      invoice_content = #{invoiceContent,jdbcType=VARCHAR},
+      invoice_amount = #{invoiceAmount,jdbcType=INTEGER},
+      distribution_mode = #{distributionMode,jdbcType=INTEGER},
+      distribution_name = #{distributionName,jdbcType=VARCHAR},
+      merge_order_status = #{mergeOrderStatus,jdbcType=INTEGER},
+      change_order_status = #{changeOrderStatus,jdbcType=INTEGER},
+      split_order_status = #{splitOrderStatus,jdbcType=INTEGER},
+      copy_order_status = #{copyOrderStatus,jdbcType=INTEGER},
+      express_code = #{expressCode,jdbcType=VARCHAR},
+      express_no = #{expressNo,jdbcType=VARCHAR},
+      buyer_remark = #{buyerRemark,jdbcType=VARCHAR},
+      seller_remark = #{sellerRemark,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      create_by_user_id = #{createByUserId,jdbcType=VARCHAR},
+      update_by_user_id = #{updateByUserId,jdbcType=VARCHAR},
+      create_by_client_id = #{createByClientId,jdbcType=VARCHAR},
+      update_by_client_id = #{updateByClientId,jdbcType=VARCHAR},
+      request_id = #{requestId,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      order_payment_type = #{orderPaymentType,jdbcType=VARCHAR},
+      rate_name = #{rateName,jdbcType=VARCHAR},
+      is_send_to_sh = #{isSendToSh,jdbcType=INTEGER},
+      marketplace = #{marketplace,jdbcType=VARCHAR},
+      hq_order_id = #{hqOrderId,jdbcType=VARCHAR},
+      order_flag = #{orderFlag,jdbcType=VARCHAR},
+      is_insurance = #{isInsurance,jdbcType=INTEGER},
+      order_source = #{orderSource,jdbcType=VARCHAR},
+      is_logistics_order = #{isLogisticsOrder,jdbcType=INTEGER},
+      waiting_status = #{waitingStatus,jdbcType=VARCHAR},
+      original_order_no = #{originalOrderNo,jdbcType=VARCHAR},
+      has_split = #{hasSplit,jdbcType=BIT},
+      shipping_label_url = #{shippingLabelUrl,jdbcType=VARCHAR},
+      ext = #{ext,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tangv.feature.model.entity.OmsOrder">
+    update oms_order
+    set owner_code = #{ownerCode,jdbcType=VARCHAR},
+      warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      order_status_time = #{orderStatusTime,jdbcType=TIMESTAMP},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      consignee_id = #{consigneeId,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      platform_code = #{platformCode,jdbcType=VARCHAR},
+      tid = #{tid,jdbcType=VARCHAR},
+      user_nick = #{userNick,jdbcType=VARCHAR},
+      seller_nick = #{sellerNick,jdbcType=VARCHAR},
+      consignee_doc_type = #{consigneeDocType,jdbcType=INTEGER},
+      consignee_doc_no = #{consigneeDocNo,jdbcType=VARCHAR},
+      order_price = #{orderPrice,jdbcType=INTEGER},
+      order_currency = #{orderCurrency,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      address = #{address,jdbcType=VARCHAR},
+      from_order_id = #{fromOrderId,jdbcType=INTEGER},
+      distribution_status = #{distributionStatus,jdbcType=INTEGER},
+      order_exception_code = #{orderExceptionCode,jdbcType=VARCHAR},
+      stock_occupy_status = #{stockOccupyStatus,jdbcType=INTEGER},
+      stock_occupy_remark = #{stockOccupyRemark,jdbcType=VARCHAR},
+      invoice_type = #{invoiceType,jdbcType=INTEGER},
+      invoice_title = #{invoiceTitle,jdbcType=VARCHAR},
+      invoice_content = #{invoiceContent,jdbcType=VARCHAR},
+      invoice_amount = #{invoiceAmount,jdbcType=INTEGER},
+      distribution_mode = #{distributionMode,jdbcType=INTEGER},
+      distribution_name = #{distributionName,jdbcType=VARCHAR},
+      merge_order_status = #{mergeOrderStatus,jdbcType=INTEGER},
+      change_order_status = #{changeOrderStatus,jdbcType=INTEGER},
+      split_order_status = #{splitOrderStatus,jdbcType=INTEGER},
+      copy_order_status = #{copyOrderStatus,jdbcType=INTEGER},
+      express_code = #{expressCode,jdbcType=VARCHAR},
+      express_no = #{expressNo,jdbcType=VARCHAR},
+      buyer_remark = #{buyerRemark,jdbcType=VARCHAR},
+      seller_remark = #{sellerRemark,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      create_by_user_id = #{createByUserId,jdbcType=VARCHAR},
+      update_by_user_id = #{updateByUserId,jdbcType=VARCHAR},
+      create_by_client_id = #{createByClientId,jdbcType=VARCHAR},
+      update_by_client_id = #{updateByClientId,jdbcType=VARCHAR},
+      request_id = #{requestId,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      order_payment_type = #{orderPaymentType,jdbcType=VARCHAR},
+      rate_name = #{rateName,jdbcType=VARCHAR},
+      is_send_to_sh = #{isSendToSh,jdbcType=INTEGER},
+      marketplace = #{marketplace,jdbcType=VARCHAR},
+      hq_order_id = #{hqOrderId,jdbcType=VARCHAR},
+      order_flag = #{orderFlag,jdbcType=VARCHAR},
+      is_insurance = #{isInsurance,jdbcType=INTEGER},
+      order_source = #{orderSource,jdbcType=VARCHAR},
+      is_logistics_order = #{isLogisticsOrder,jdbcType=INTEGER},
+      waiting_status = #{waitingStatus,jdbcType=VARCHAR},
+      original_order_no = #{originalOrderNo,jdbcType=VARCHAR},
+      has_split = #{hasSplit,jdbcType=BIT},
+      shipping_label_url = #{shippingLabelUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

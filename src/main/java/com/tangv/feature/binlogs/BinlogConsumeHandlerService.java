@@ -13,7 +13,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,7 +32,10 @@ public class BinlogConsumeHandlerService implements ApplicationContextAware {
      * key: 操作源表
      * value: 具体的binlog处理器
      */
-    private static ConcurrentHashMap<BinlogConsumeTableEnum, AbstractBinlogConsumeHandler> binlogHandlerMap = new ConcurrentHashMap<>();
+    private static Map<BinlogConsumeTableEnum, AbstractBinlogConsumeHandler> binlogHandlerMap = new ConcurrentHashMap<>();
+
+    @Resource
+    private TransactionTemplate transactionTemplate;
 
     /**
      * 将所有的binlog处理器放在内存Map中
@@ -64,30 +69,34 @@ public class BinlogConsumeHandlerService implements ApplicationContextAware {
      */
     public boolean consumeBinlog(String binlog) {
         //1.将binlog消息按类模板解析成集合
-        List<BinlogMessage> binlogMessageList = JSONObject.parseArray(binlog, BinlogMessage.class);
-        for (BinlogMessage binlogMessage : binlogMessageList) {
-            BinlogMessage.BinlogMetaData binlogMetaData = binlogMessage.getBinlogValue().getBinlogMetaData();
+        BinlogMessage binlogMessage = JSONObject.parseObject(binlog, BinlogMessage.class);
             //操作类型
-            String operation = binlogMetaData.getOperation();
+            String operation = binlogMessage.getType();
             //操作源表
-            String tableName = binlogMetaData.getTableName();
+            String tableName = binlogMessage.getTable();
             //具体数据变更
-            String binlogContent = binlogMessage.getBinlogValue().getBinlogContentData().getChange();
-            BinlogOperationTypeEnum binlogOperationTypeEnum = BinlogOperationTypeEnum.getByType(operation);
-            if (binlogOperationTypeEnum == null) {
-                //出现预期之外的类型，直接不处理
-                return true;
-            }
-            //2.根据源表名匹配到具体的处理器
-            AbstractBinlogConsumeHandler binlogConsumeHandler = getBinlogConsumeHandler(BinlogConsumeTableEnum.getByTableName(tableName));
-            //将具体数据变更解析成类模板
-            Object convertEntity = binlogConsumeHandler.convert(binlogContent);
-            //3.根据操作类型将数据变更执行到数据库
-            int execute = executeChange(binlogConsumeHandler, binlogOperationTypeEnum, convertEntity);
-            if (execute <= 0) {
-                return false;
-            }
+
+        List<JSONObject> dataList = binlogMessage.getData();
+
+        BinlogOperationTypeEnum binlogOperationTypeEnum = BinlogOperationTypeEnum.getByType(operation);
+        if (binlogOperationTypeEnum == null) {
+            //出现预期之外的类型，直接不处理
+            return true;
         }
+        //2.根据源表名匹配到具体的处理器
+        AbstractBinlogConsumeHandler binlogConsumeHandler = getBinlogConsumeHandler(BinlogConsumeTableEnum.getByTableName(tableName));
+
+        transactionTemplate.executeWithoutResult(status -> {
+            for (JSONObject eachData : dataList) {
+                //将具体数据变更解析成类模板
+                Object convertEntity = binlogConsumeHandler.convert(eachData);
+                //3.根据操作类型将数据变更执行到数据库
+                int execute = executeChange(binlogConsumeHandler, binlogOperationTypeEnum, convertEntity);
+                if (execute <= 0) {
+                    throw new RuntimeException("执行SQL发生错误");
+                }
+            }
+        });
         return true;
     }
 

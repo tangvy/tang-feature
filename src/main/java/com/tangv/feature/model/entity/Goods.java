@@ -1,9 +1,9 @@
 package com.tangv.feature.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.tangv.common.base.entity.BasePojo;
 import lombok.Data;
 
-import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 /**
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * Description: 商品
  */
 @Data
-@Table(name = "goods")
+@TableName(value = "goods")
 public class Goods extends BasePojo {
 
     private String goodsCode;

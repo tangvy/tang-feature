@@ -2,6 +2,9 @@ server:
   port: 9000
 
 spring:
+  profiles:
+    active: dev
+
   datasource:
     druid:
       initial-size: 2
@@ -16,19 +19,19 @@ spring:
         wall,stat,slf4j
 
       tang-feature:
-        url: jdbc:mysql://192.168.110.64:3306/tang-feature?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://localhost:3306/tang-feature?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
         username: root
         password: 123456
         driver-class-name: com.mysql.cj.jdbc.Driver
 
       tang-feature1:
-        url: jdbc:mysql://192.168.110.64:3306/tang-feature1?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://localhost:3306/tang-feature1?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
         username: root
         password: 123456
         driver-class-name: com.mysql.cj.jdbc.Driver
 
       canal-tangv:
-        url: jdbc:mysql://192.168.110.64:3306/canal_tangv?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://localhost:3306/canal_tangv?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
         username: root
         password: 123456
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -47,7 +50,7 @@ spring:
     timeout: 1000
 
   kafka:
-    bootstrap-servers: :192.168.110.64:9091,192.168.110.64:9092,192.168.110.64:9093
+    bootstrap-servers: :localhost:9091,localhost:9092,localhost:9093
     security:
       protocol: PLAINTEXT
     consumer:
@@ -81,6 +84,7 @@ spring:
           mechanism: PLAIN
           jaas:
             config: org.apache.kafka.common.security.scram.ScramLoginModule required username="" password="";
+      retries: 1
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

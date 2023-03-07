@@ -42,7 +42,7 @@ public class GoodsService {
     public void insertGoods(Goods goods) {
         goods.setGoodsCode(NumUtil.getCode(CodeType.GOODS_CODE));
         goods.setStackingTime(LocalDateTime.now());
-        goodsMapper.insertSelective(goods);
+        //goodsMapper.insertSelective(goods);
         redisTemplate.opsForZSet().add(RedisConst.GOODS_OFFLINE,goods.getId(), DateUtil.getTimeStemp(goods.getStackingTime().plusMinutes(5L)));
     }
 

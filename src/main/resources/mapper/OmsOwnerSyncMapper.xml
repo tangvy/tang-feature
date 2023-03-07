@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tangv.feature.dao.OmsOwnerSyncMapper">
+  <resultMap id="BaseResultMap" type="com.tangv.feature.model.entity.OmsOwnerSync">
+    <id column="owner_id" jdbcType="INTEGER" property="ownerId" />
+    <result column="owner_code" jdbcType="VARCHAR" property="ownerCode" />
+    <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    owner_id, owner_code, owner_name, gmt_create, gmt_modify
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from oms_owner_sync
+    where owner_id = #{ownerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oms_owner_sync
+    where owner_id = #{ownerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tangv.feature.model.entity.OmsOwnerSync">
+    insert into oms_owner_sync (owner_id, owner_code, owner_name, 
+      gmt_create, gmt_modify)
+    values (#{ownerId,jdbcType=INTEGER}, #{ownerCode,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tangv.feature.model.entity.OmsOwnerSync">
+    insert into oms_owner_sync
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="ownerCode != null">
+        owner_code,
+      </if>
+      <if test="ownerName != null">
+        owner_name,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=INTEGER},
+      </if>
+      <if test="ownerCode != null">
+        #{ownerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null">
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tangv.feature.model.entity.OmsOwnerSync">
+    update oms_owner_sync
+    <set>
+      <if test="ownerCode != null">
+        owner_code = #{ownerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null">
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where owner_id = #{ownerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tangv.feature.model.entity.OmsOwnerSync">
+    update oms_owner_sync
+    set owner_code = #{ownerCode,jdbcType=VARCHAR},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+    where owner_id = #{ownerId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

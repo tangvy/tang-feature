@@ -4,17 +4,11 @@
  */
 package com.tangv.feature.kafka.consumer;
 
-import com.alibaba.fastjson.JSONObject;
-import com.tangv.common.enums.BinlogOperationTypeEnum;
 import com.tangv.feature.binlogs.BinlogConsumeHandlerService;
-import com.tangv.feature.binlogs.model.BinlogMessage;
-import com.tangv.feature.kafka.constant.MultikafkaConstant;
-import io.micrometer.core.instrument.util.JsonUtils;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author tang wei
@@ -23,8 +17,8 @@ import java.util.List;
  * 任何表的binlog kafka消息只需直接调用BinlogConsumeHandlerService的consumeBinlog()方法
  */
 @Component
-@KafkaListener(id = "tangv", groupId = "tangv_group", autoStartup = "${spring.kafka.consumer.autoStartup}", topics = "canal-masterdata-staging")
-public class MarketPlaceLogisticConsumer extends AbstractKafkaListener {
+@KafkaListener(id = "tangv", groupId = "tangv_group", autoStartup = "${spring.kafka.consumer.autoStartup}", topics = "canal-binlog")
+public class OmsOwnerBinlogConsumer extends AbstractKafkaListener {
 
     @Resource
     private BinlogConsumeHandlerService binlogConsumeHandlerService;

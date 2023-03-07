@@ -4,6 +4,7 @@
  */
 package com.tangv.feature.binlogs.model;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -19,59 +20,34 @@ public class BinlogMessage implements Serializable {
 
     private static final long serialVersionUID = -1132129963667790864L;
 
-    private String topic;
+    private Integer id;
 
-    private String partition;
+    private String database;
 
-    private Long offset;
+    private String table;
 
-    private Long timestamp;
+    /**
+     * {@link com.tangv.common.enums.BinlogOperationTypeEnum}
+     */
+    private String type;
 
-    private String timestampType;
+    private Long es;
 
-    private List headers;
+    private Long ts;
 
-    private String key;
+    private String gtid;
 
-    @JsonProperty(value = "value")
-    private BinlogValue binlogValue;
+    private boolean isDdl;
 
-    @Data
-    public static class BinlogValue {
+    private String sql;
 
-        @JsonProperty(value = "data")
-        private BinlogContentData binlogContentData;
+    private List<String> pkNames;
 
-        @JsonProperty(value = "metadata")
-        private BinlogMetaData binlogMetaData;
+    private List<JSONObject> data;
 
-    }
+    private Object mysqlType;
 
-    @Data
-    public static class BinlogMetaData {
+    private List<Object> old;
 
-        private String timestamp;
 
-        @JsonProperty(value = "record-type")
-        private String recordType;
-
-        private String operation;
-
-        @JsonProperty(value = "partition-key-type")
-        private String partitionKeyType;
-
-        @JsonProperty(value = "schema-name")
-        private String schemaName;
-
-        @JsonProperty(value = "table-name")
-        private String tableName;
-    }
-
-    @Data
-    public static class BinlogContentData {
-
-        @JsonProperty(value = "_doc")
-        private String change;
-
-    }
 }
