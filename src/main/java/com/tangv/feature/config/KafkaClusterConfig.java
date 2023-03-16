@@ -74,7 +74,7 @@ public class KafkaClusterConfig {
                         clusterKafkaProperties.getListener().getConcurrency());
         concurrentKafkaListenerContainerFactory.getContainerProperties().setAckMode(
                 Objects.isNull(clusterKafkaProperties.getListener().getAckMode()) ?
-                        ContainerProperties.AckMode.MANUAL :
+                        ContainerProperties.AckMode.MANUAL_IMMEDIATE :
                         clusterKafkaProperties.getListener().getAckMode());
         return concurrentKafkaListenerContainerFactory;
     }

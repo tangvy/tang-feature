@@ -35,7 +35,6 @@ import java.util.regex.Pattern;
  * SQL拦截器，美化SQL日志打印，打印SQL执行时间
  */
 
-@Component
 @Intercepts({@Signature(type = StatementHandler.class, method = "query", args = {Statement.class, ResultHandler.class}),
         @Signature(type = StatementHandler.class, method = "update", args = {Statement.class}),
         @Signature(type = StatementHandler.class, method = "batch", args = {Statement.class})})

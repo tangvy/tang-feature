@@ -24,6 +24,11 @@ public class OmsOwnerBinlogConsumer extends AbstractKafkaListener {
     private BinlogConsumeHandlerService binlogConsumeHandlerService;
 
     @Override
+    public boolean autoCommit() {
+        return true;
+    }
+
+    @Override
     public boolean isRepeateConsume(KafkaComsumePayLoad kafkaComsumePayLoad) {
         return false;
     }

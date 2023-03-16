@@ -2,12 +2,14 @@ package com.tangv.feature.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.tangv.common.enums.DataBaseType;
+import com.tangv.feature.config.interceptors.MybatisSqlLogInterceptor;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -17,10 +19,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.test.context.jdbc.Sql;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,7 +78,7 @@ public class DataSourceConfig {
         targetDataSources.put(DataBaseType.TANG_FEATURE1,feature1);
         targetDataSources.put(DataBaseType.CANAL_TANGV,canalTangv);
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
-        dynamicDataSource.setDefaultTargetDataSource(canalTangv);
+        dynamicDataSource.setDefaultTargetDataSource(feature);
         dynamicDataSource.setTargetDataSources(targetDataSources);
         return dynamicDataSource;
     }
@@ -115,7 +115,13 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public SqlSessionFactory sqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+    public SqlSessionFactory sqlSessionFactory(SqlSessionFactory sqlSessionFactory, @Qualifier("mybatisSqlLogInterceptor") Interceptor mybatisSqlLogInterceptor) {
+        sqlSessionFactory.getConfiguration().addInterceptor(mybatisSqlLogInterceptor);
         return sqlSessionFactory;
+    }
+
+    @Bean(name = "mybatisSqlLogInterceptor")
+    public Interceptor mybatisSqlLogInterceptor() {
+        return new MybatisSqlLogInterceptor();
     }
 }

@@ -30,19 +30,31 @@ public abstract class AbstractKafkaListener {
                 buildKafkaComsumePayLoad(data, receivedTimestamp, receivedTopic, receivedMessageKey);
         log.info(" ====> receive message：{}", JSONObject.toJSONString(kafkaComsumePayLoad));
         boolean isRepeateConsume = isRepeateConsume(kafkaComsumePayLoad);
-        if (isRepeateConsume) {
-            log.warn("messageKey:{}，topic：{}存在重复消息数据-->【{}】", receivedMessageKey,
-                    receivedTopic, kafkaComsumePayLoad.getData());
-            //手动确认ack
-            ack.acknowledge();
-            return;
-        }
-
-        if (doBiz(kafkaComsumePayLoad)) {
-            //手动确认ack
-            ack.acknowledge();
+        boolean autoCommit = autoCommit();
+        try {
+            if (isRepeateConsume) {
+                log.warn("messageKey:{}，topic：{}存在重复消息数据-->【{}】", receivedMessageKey,
+                        receivedTopic, kafkaComsumePayLoad.getData());
+                doAck(ack);
+                return;
+            }
+            if (doBiz(kafkaComsumePayLoad)) {
+                doAck(ack);
+            }
+        } finally {
+            if (autoCommit) {
+                ack.acknowledge();
+                System.out.println("成功");
+            }
         }
     }
+
+    /**
+     * 是否自动提交offset
+     *
+     * @return boolean
+     */
+    public abstract boolean autoCommit();
 
     /**
      * 是否重复消费，幂等处理
@@ -70,5 +82,12 @@ public abstract class AbstractKafkaListener {
                 .receivedTopic(receivedTopic)
                 .receivedMessageKey(receivedMessageKey)
                 .build();
+    }
+
+    private void doAck(Acknowledgment ack) {
+        //手动确认ack
+        if (!autoCommit()) {
+            ack.acknowledge();
+        }
     }
 }

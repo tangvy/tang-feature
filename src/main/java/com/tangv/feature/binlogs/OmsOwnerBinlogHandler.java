@@ -5,12 +5,12 @@
 package com.tangv.feature.binlogs;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tangv.common.annotations.DataBase;
 import com.tangv.common.enums.BinlogConsumeTableEnum;
+import com.tangv.common.enums.DataBaseType;
 import com.tangv.feature.binlogs.model.OmsOwnerBinlog;
-import com.tangv.feature.config.DataBaseType;
 import com.tangv.feature.config.DataSourceHolder;
 import com.tangv.feature.dao.OmsOwnerSyncMapper;
-import com.tangv.feature.model.entity.OmsOwner;
 import com.tangv.feature.model.entity.OmsOwnerSync;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -33,31 +33,22 @@ public class OmsOwnerBinlogHandler extends AbstractBinlogConsumeHandler<OmsOwner
         return BinlogConsumeTableEnum.OMS_OWNER;
     }
 
+    @DataBase(value = DataBaseType.TANG_FEATURE)
     @Override
     public int insert(OmsOwnerSync insert) {
-        DataSourceHolder.setDatasources(DataBaseType.TANG_FEATURE);
-        System.out.println(DataSourceHolder.getDataSources());
-        int i = omsOwnerSyncMapper.insert(insert);
-        DataSourceHolder.remove();
-        return i;
+        return omsOwnerSyncMapper.insert(insert);
     }
 
+    @DataBase(value = DataBaseType.TANG_FEATURE)
     @Override
     public int update(OmsOwnerSync update) {
-        DataSourceHolder.setDatasources(DataBaseType.TANG_FEATURE);
-        System.out.println(DataSourceHolder.getDataSources());
-        int i = omsOwnerSyncMapper.updateByPrimaryKey(update);
-        DataSourceHolder.remove();
-        return i;
+        return omsOwnerSyncMapper.updateByPrimaryKey(update);
     }
 
+    @DataBase(value = DataBaseType.TANG_FEATURE)
     @Override
     public int delete(OmsOwnerSync delete) {
-        DataSourceHolder.setDatasources(DataBaseType.TANG_FEATURE);
-        System.out.println(DataSourceHolder.getDataSources());
-        int i = omsOwnerSyncMapper.deleteByPrimaryKey(delete.getOwnerId());
-        DataSourceHolder.remove();
-        return i;
+        return omsOwnerSyncMapper.deleteByPrimaryKey(delete.getOwnerId());
     }
 
     @Override

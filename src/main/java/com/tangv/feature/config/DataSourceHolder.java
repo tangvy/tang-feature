@@ -1,5 +1,7 @@
 package com.tangv.feature.config;
 
+import com.tangv.common.enums.DataBaseType;
+
 /**
  * author:   tangwei
  * Date:     2020/12/30 17:31

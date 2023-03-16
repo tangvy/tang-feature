@@ -1,7 +1,6 @@
-/*
 package com.tangv.feature.aspect;
 
-import com.tangv.common.aspect.declare.IPojo;
+import com.tangv.common.annotations.IPojo;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Iterator;
 import java.util.List;
 
-*/
 /**
  * Description:
  * Author:      TangWei
  * Date:        2020/9/17 10:26 上午
- *//*
+ * */
+
 
 @Configuration
 @Aspect
@@ -89,4 +88,3 @@ public class InsertUpdateAspect {
     }
 
 }
-*/
